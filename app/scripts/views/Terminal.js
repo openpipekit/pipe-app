@@ -23,6 +23,7 @@ PipeApp.Views = PipeApp.Views || {};
         },
 
         render: function () {
+          this.listenForExec()
           this.$el.html(this.template(this.model.toJSON()))
           this.$el.find('.terminal__console').height(this.height)
           this.updateDrawer()
@@ -42,6 +43,20 @@ PipeApp.Views = PipeApp.Views || {};
             this.$el.css('bottom', '-' + this.height + 'px')
             this.$el.find('button').text('open terminal')
           }
+
+        },
+
+        listenForExec: function() {
+          var view = this
+          var check = function() {
+            if (window.hasOwnProperty('exec')) {
+              view.trigger('execReady')
+            }
+            else {
+              setTimeout(check,300)
+            }
+          }
+          check()
 
         }
 

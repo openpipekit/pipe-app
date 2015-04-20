@@ -7,15 +7,21 @@ window.PipeApp = {
     Views: {},
     Routers: {},
     init: function () {
-        'use strict';
-        console.log('Hello from Backbone!');
+        'use strict'
+
         var terminalView = new PipeApp.Views.Terminal()
         terminalView.model = new PipeApp.Models.Terminal()
-        //@todo - Should modify terminalView.model.attributes.url
-        terminalView.render()
         $('body').append(terminalView.el)
-        var configurator = new PipeApp.Routers.Configurator()
-        Backbone.history.start()
+
+        terminalView.on('execReady', function() {
+          var configurator = new PipeApp.Routers.Configurator()
+          Backbone.history.start()
+        })
+
+        //@todo - Should modify terminalView.model.attributes.url, not everything is going to be localhost
+
+        terminalView.render()
+
     }
 };
 
