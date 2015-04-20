@@ -11,36 +11,35 @@ PipeApp.Views = PipeApp.Views || {};
 
         tagName: 'div',
 
-        id: 'terminal',
-
-        className: '',
+        className: 'terminal',
 
         events: {
-          'click button': 'toggleTerminal' 
+          'click button': 'toggleDrawer'
         },
 
         initialize: function () {
-          this.inView = true 
+          this.drawer = true
+          this.height = $(window).height()/3
         },
 
         render: function () {
-          this.$el.html(this.template());
-          this.$el.find('iframe').width($(window).width())
-          this.setView()
+          this.$el.html(this.template(this.model.toJSON()))
+          this.$el.find('.terminal__console').height(this.height)
+          this.updateDrawer()
         },
 
-        toggleTerminal: function() {
-          this.inView = !this.inView
-          this.setView()
+        toggleDrawer: function() {
+          this.drawer = !this.drawer
+          this.updateDrawer()
         },
 
-        setView: function() {
-          if (this.inView) {
+        updateDrawer: function() {
+          if (this.drawer) {
             this.$el.css('bottom', '0px')
             this.$el.find('button').text('close terminal')
           }
           else {
-            this.$el.css('bottom', '-300px')
+            this.$el.css('bottom', '-' + this.height + 'px')
             this.$el.find('button').text('open terminal')
           }
 
