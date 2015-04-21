@@ -32,7 +32,6 @@ PipeApp.Models = PipeApp.Models || {};
               console.log(response)
             },
             success: function(response) {
-              debugger
               model.schema = model.convertOptionsToSchema({options: response}, {
                 success: function(result) {
                   model.schema = result
