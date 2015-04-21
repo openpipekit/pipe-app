@@ -32,22 +32,36 @@ PipeApp.Models = PipeApp.Models || {};
               console.log(response)
             },
             success: function(response) {
-              model.schema = model.convertOptionsToSchema({options: response}, {
-                success: function(result) {
-                  model.schema = result
-                  exits.success(result)
-                }
+              var schema = {}
+              response.forEach(function (option) {
+                schema[option.optionName] = convertOptionToField(option)
               })
+              model.schema = schema
+              exits.success(schema)
             }
           })
 
-        },
+          var convertOptionToField = function(option) {
+            var field = {}
+            if (option.takesArguments == true && option.arguments.length > 0) {
+              field.type = 'Select'
+              field.options = option.arguments
+              if (option.argumentRequired === false) {
+                field.options.unshift({label:'default',val:''})
+              }
+            }
+            else if (option.takesArguments == true && option.arguments.length === 0) {
+              field.type = 'Text'
+            }
+            if (option.helpText !== '') {
+              field.help = option.helpText
+            }
+            if (option.argumentRequired === true) {
+              field.validators = ['required']
+            }
+            return field
+          }
 
-        convertOptionsToSchema: function(inputs, exits) {
-          var options = inputs.options
-          // @todo
-          var schema = options
-          exits.success(schema)
         },
 
         runCommand: function(inputs, exits) {
