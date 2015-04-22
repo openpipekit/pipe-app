@@ -30,6 +30,7 @@ PipeApp.Routers = PipeApp.Routers || {};
 
         var cmdForm = new PipeApp.Views.CmdForm()
         cmdForm.model = PipeApp.deviceCmd
+        cmdForm.continuePath = 'which-database'
 
         $('.main').append(cmdForm.el)
 

@@ -73,7 +73,12 @@ PipeApp.Models = PipeApp.Models || {};
             if (key !== 'command') cmd += ' --' + key + ' ' + value
           })
           exec(cmd, function(response) {
-
+            if (!response) {
+              exits.error('Something went wrong.')
+            }
+            else {
+              exits.success(response)
+            }
           })
         },
 

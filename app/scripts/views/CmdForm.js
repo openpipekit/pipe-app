@@ -37,8 +37,19 @@ PipeApp.Views = PipeApp.Views || {};
         testCmd: function() {
           // Commit form to model
           this.form.commit()
-          PipeApp.terminalView.toggle()
-          this.model.run()
+          //PipeApp.terminalView.toggle()
+          this.model.run(null, {
+            error: function(result) {
+              alert(result)
+            },
+            success: function(result) {
+              alert(result)
+            }
+          })
+        },
+
+        continue: function() {
+          Backbone.history.navigate(this.continuePath, {trigger: true})
         }
 
     });

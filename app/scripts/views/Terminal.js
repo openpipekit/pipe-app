@@ -18,7 +18,7 @@ PipeApp.Views = PipeApp.Views || {};
         },
 
         initialize: function () {
-          this.drawer = true
+          this.drawer = false
           this.height = $(window).height()/3
         },
 
