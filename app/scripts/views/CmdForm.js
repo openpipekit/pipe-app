@@ -15,7 +15,10 @@ PipeApp.Views = PipeApp.Views || {};
 
         className: '',
 
-        events: {},
+        events: {
+          'click .test': 'testCmd',
+          'click .continue': 'continue'
+        },
 
         initialize: function () {
         },
@@ -24,11 +27,18 @@ PipeApp.Views = PipeApp.Views || {};
           var vars = {
             form: ''
           }
-          var form = new Backbone.Form({
-              model: this.model
+          this.form = new Backbone.Form({
+            model: this.model
           }).render();
-          vars.form = form.$el.html()
-          this.$el.html(this.template(vars));
+          this.$el.append(this.form.el)
+          this.$el.append(this.template(vars));
+        },
+
+        testCmd: function() {
+          // Commit form to model
+          this.form.commit()
+          PipeApp.terminalView.toggle()
+          this.model.run()
         }
 
     });

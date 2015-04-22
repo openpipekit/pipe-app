@@ -7,11 +7,37 @@ PipeApp.Routers = PipeApp.Routers || {};
 
     PipeApp.Routers.Configurator = Backbone.Router.extend({
       routes: {
-        '': 'routeStart',
+        '': 'whichDevice',
+        'which-device': 'whichDevice',
         'configure-device':'configureDevice'
       },
+
+      whichDevice: function() {
+
+          $('.main').html('<h1>What command controls your device?</h1>')
+
+          var whichDeviceView = new PipeApp.Views.WhichDevice({model: PipeApp.deviceCmd})
+
+          $('.main').append(whichDeviceView.el)
+
+          whichDeviceView.render()
+
+      },
+
       configureDevice: function() {
-        $('.main').html('heyo')
+
+        $('.main').html('<h1>Tell us about your device.</h1>')
+
+        var cmdForm = new PipeApp.Views.CmdForm()
+        cmdForm.model = PipeApp.deviceCmd
+
+        $('.main').append(cmdForm.el)
+
+        PipeApp.deviceCmd.setSchema({}, {
+          success: function(result) {
+            cmdForm.render()
+          }
+        })
       }
 
     });

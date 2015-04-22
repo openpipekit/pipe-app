@@ -14,7 +14,7 @@ PipeApp.Views = PipeApp.Views || {};
         className: 'terminal',
 
         events: {
-          'click button': 'toggleDrawer'
+          'click button': 'toggle'
         },
 
         initialize: function () {
@@ -29,7 +29,7 @@ PipeApp.Views = PipeApp.Views || {};
           this.updateDrawer()
         },
 
-        toggleDrawer: function() {
+        toggle: function() {
           this.drawer = !this.drawer
           this.updateDrawer()
         },

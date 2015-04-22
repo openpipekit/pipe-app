@@ -42,6 +42,7 @@ PipeApp.Models = PipeApp.Models || {};
           })
 
           var convertOptionToField = function(option) {
+            // @todo Look for boolean fields, might need to be in the Cmd class
             var field = {}
             if (option.takesArguments == true && option.arguments.length > 0) {
               field.type = 'Select'
@@ -64,8 +65,16 @@ PipeApp.Models = PipeApp.Models || {};
 
         },
 
-        runCommand: function(inputs, exits) {
+        run: function(inputs, exits) {
+          var cmd = this.get('command')
+          _.each(this.attributes, function(value, key, list) {
+            // @todo If optional and null and text, then don't add it
+            // @todo look for boolean flags
+            if (key !== 'command') cmd += ' --' + key + ' ' + value
+          })
+          exec(cmd, function(response) {
 
+          })
         },
 
 
