@@ -9,7 +9,9 @@ PipeApp.Routers = PipeApp.Routers || {};
       routes: {
         '': 'whichDevice',
         'which-device': 'whichDevice',
-        'configure-device':'configureDevice'
+        'configure-device':'configureDevice',
+        'which-database': 'whichDatabase',
+        'configure-database':'configureDatabase'
       },
 
       whichDevice: function() {
@@ -35,6 +37,35 @@ PipeApp.Routers = PipeApp.Routers || {};
         $('.main').append(cmdForm.el)
 
         PipeApp.deviceCmd.setSchema({}, {
+          success: function(result) {
+            cmdForm.render()
+          }
+        })
+      },
+
+      whichDatabase: function() {
+
+          $('.main').html('<h1>What database do you want to data to?</h1>')
+
+          var whichDatabaseView = new PipeApp.Views.WhichDatabase({model: PipeApp.databaseCmd})
+
+          $('.main').append(whichDatabaseView.el)
+
+          whichDatabaseView.render()
+
+      },
+
+      configureDatabase: function() {
+
+        $('.main').html('<h1>Tell us about your database.</h1>')
+
+        var cmdForm = new PipeApp.Views.CmdForm()
+        cmdForm.model = PipeApp.databaseCmd
+        cmdForm.continuePath = 'start'
+
+        $('.main').append(cmdForm.el)
+
+        PipeApp.databaseCmd.setSchema({}, {
           success: function(result) {
             cmdForm.render()
           }

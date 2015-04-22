@@ -65,13 +65,18 @@ PipeApp.Models = PipeApp.Models || {};
 
         },
 
-        run: function(inputs, exits) {
+        generate: function() {
           var cmd = this.get('command')
           _.each(this.attributes, function(value, key, list) {
             // @todo If optional and null and text, then don't add it
             // @todo look for boolean flags
             if (key !== 'command') cmd += ' --' + key + ' ' + value
           })
+          return cmd
+        },
+
+        run: function(inputs, exits) {
+          var cmd = this.generate()
           exec(cmd, function(response) {
             if (!response) {
               exits.error('Something went wrong.')
