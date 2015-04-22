@@ -70,7 +70,7 @@ PipeApp.Models = PipeApp.Models || {};
           _.each(this.attributes, function(value, key, list) {
             // @todo If optional and null and text, then don't add it
             // @todo look for boolean flags
-            if (key !== 'command') cmd += ' --' + key + ' ' + value
+            if (key !== 'command' && value !== '') cmd += ' --' + key + ' ' + value
           })
           return cmd
         },

@@ -11,7 +11,8 @@ PipeApp.Routers = PipeApp.Routers || {};
         'which-device': 'whichDevice',
         'configure-device':'configureDevice',
         'which-database': 'whichDatabase',
-        'configure-database':'configureDatabase'
+        'configure-database':'configureDatabase',
+        'start': 'start'
       },
 
       whichDevice: function() {
@@ -70,6 +71,18 @@ PipeApp.Routers = PipeApp.Routers || {};
             cmdForm.render()
           }
         })
+      },
+
+      start: function() {
+
+          $('.main').html('<h1>Let\'s start piping data. How often in seconds should we pipe data?</h1>')
+
+          var startView = new PipeApp.Views.Start()
+
+          $('.main').append(startView.el)
+
+          startView.render()
+
       }
 
     });

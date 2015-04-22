@@ -49,6 +49,7 @@ PipeApp.Views = PipeApp.Views || {};
         },
 
         continue: function() {
+          this.form.commit()
           Backbone.history.navigate(this.continuePath, {trigger: true})
         }
 
